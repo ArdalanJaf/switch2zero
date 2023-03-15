@@ -33,6 +33,8 @@ export const formSlice = createSlice({
 
         newValue =
           currentYearValue + value <= 55 ? value : 55 - currentYearValue;
+
+        //trigger notification so user knows they reached max?
       }
 
       newPurchases[index][key] = newValue;
@@ -47,7 +49,12 @@ export const formSlice = createSlice({
     addPurchase: (state) => {
       let newPurchases = JSON.parse(JSON.stringify(state.purchases));
 
-      newPurchases.push(initialState.purchases[0]);
+      // copy last month & year for more convenient user experience
+      let newPurchase = JSON.parse(
+        JSON.stringify(newPurchases[newPurchases.length - 1])
+      );
+      newPurchase.trees = 0;
+      newPurchases.push(newPurchase);
       return { ...state, purchases: newPurchases };
     },
   },

@@ -15,6 +15,7 @@ export default function FormTreePurchase({ treePurchase, index }) {
       <td>{index + 1}</td>
       <td className="d-flex">
         <Form.Select
+          value={purchases[index].month}
           onChange={(e) =>
             dispatch(
               setPurchase({
@@ -35,6 +36,7 @@ export default function FormTreePurchase({ treePurchase, index }) {
           ))}
         </Form.Select>
         <Form.Select
+          value={purchases[index].year}
           onChange={(e) =>
             dispatch(
               setPurchase({
