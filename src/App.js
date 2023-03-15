@@ -1,12 +1,12 @@
 import React from "react";
-import { Counter } from "./features/counter/Counter";
-import Form from "./components/Form";
+import InputForm from "./components/InputForm";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <div className="App">
-      <Form />
+      <InputForm />
     </div>
   );
 }

@@ -1,0 +1,49 @@
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addPurchase } from "../app/formSlice";
+import FormTreePurchase from "./FormTreePurchase";
+import Table from "react-bootstrap/table";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
+export default function FormTreePurchases() {
+  const dispatch = useDispatch();
+  const { purchases, controls } = useSelector((state) => state.form);
+  let totalTrees = 0;
+  purchases.map((p) => (totalTrees += p.trees));
+
+  return (
+    <>
+      <Form.Group>
+        <p>
+          Plan your tree purchases by adding a purchase at different times. You
+          may only purchase a maximum of 55 trees per year.
+        </p>
+        <Table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Month & Year</th>
+              <th>Number of Trees</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {purchases.map((p, i) => {
+              return <FormTreePurchase key={i} treePurchase={p} index={i} />;
+            })}
+            <tr>
+              <td />
+              <td />
+              <td>Total: {totalTrees}</td>
+              <td />
+            </tr>
+          </tbody>
+        </Table>
+        <Button variant="primary" onClick={() => dispatch(addPurchase())}>
+          Add purchase
+        </Button>
+      </Form.Group>
+    </>
+  );
+}
