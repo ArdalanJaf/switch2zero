@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { avgAnnualCO2ByCountry } from "../config/avgAnnualCO2ByCountry";
-import { setAnnualCO2, setCustomCo2 } from "../app/formSlice";
+import { avgAnnualCO2ByCountry } from "../../config/avgAnnualCO2ByCountry";
+import { setAnnualCO2, setCustomCo2 } from "../../app/formSlice";
 import Form from "react-bootstrap/Form";
-import { formErrorBorder } from "../config/formErrorBorder";
+import { formErrorBorder } from "../../config/formErrorBorder";
 
-export default function FormCO2() {
+export default function CO2() {
   const dispatch = useDispatch();
   const { annualCO2, controls } = useSelector((state) => state.form);
 

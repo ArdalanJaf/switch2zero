@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPurchase, delPurchase } from "../app/formSlice";
+import { setPurchase, delPurchase } from "../../app/formSlice";
 import ErrorMsg from "./ErrorMsgs";
-import months from "../config/months";
-import years from "../config/years";
-import DeleteIcon from "../assets/icons/DeleteIcon";
 import Form from "react-bootstrap/Form";
-import { formErrorBorder } from "../config/formErrorBorder";
+import { formErrorBorder } from "../../config/formErrorBorder";
+import months from "../../config/months";
+import years from "../../config/years";
+import DeleteIcon from "../../assets/icons/DeleteIcon";
 
-export default function FormTreePurchase({ treePurchase, index }) {
+export default function TreePurchase({ treePurchase, index }) {
   const dispatch = useDispatch();
   const {
     purchases,

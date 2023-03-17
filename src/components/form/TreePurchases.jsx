@@ -1,12 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPurchase } from "../app/formSlice";
-import FormTreePurchase from "./FormTreePurchase";
-import Table from "react-bootstrap/table";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import { addPurchase } from "../../app/formSlice";
+import FormTreePurchase from "./TreePurchase";
+import { Table, Form, Button } from "react-bootstrap";
 
-export default function FormTreePurchases() {
+export default function TreePurchases() {
   const dispatch = useDispatch();
   const { purchases } = useSelector((state) => state.form);
   let totalTrees = 0;

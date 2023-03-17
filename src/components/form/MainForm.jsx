@@ -1,19 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setErrors, clearErrors } from "../app/formSlice";
-import { setData } from "../app/dataSlice";
-import FormCO2 from "./FormCO2";
-import Form from "react-bootstrap/Form";
-import FormTreePurchases from "./FormTreePurchases";
-
-import Button from "react-bootstrap/Button";
-import FormInflationRate from "./FormInflationRate";
+import { setErrors, clearErrors } from "../../app/formSlice";
+import { setData } from "../../app/dataSlice";
+import FormCO2 from "./CO2";
+import { Form, Button } from "react-bootstrap";
+import FormTreePurchases from "./TreePurchases";
+import FormInflationRate from "./InflationRate";
 import ErrorMsgs from "./ErrorMsgs";
 
 import axios from "axios";
-import { API_URL } from "../api/API_URL";
+import { API_URL } from "../../api/API_URL";
 
-export default function InputForm() {
+export default function MainForm() {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
   const errors = form.controls.errors;

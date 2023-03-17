@@ -1,5 +1,5 @@
 import React from "react";
-import InputForm from "./components/InputForm";
+import MainForm from "./components/form/MainForm";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <Container>
         <Row>
-          <InputForm />
+          <MainForm />
         </Row>
       </Container>
     </div>

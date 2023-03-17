@@ -1,11 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { avgAnnualCO2ByCountry } from "../config/avgAnnualCO2ByCountry";
-import { setInflationRate, setCustomCo2 } from "../app/formSlice";
 import Form from "react-bootstrap/Form";
-import { formErrorBorder } from "../config/formErrorBorder";
+import { setInflationRate } from "../../app/formSlice";
+import { formErrorBorder } from "../../config/formErrorBorder";
 
-export default function FormInflationRate() {
+export default function InflationRate() {
   const dispatch = useDispatch();
   const { inflationRate, controls } = useSelector((state) => state.form);
 
