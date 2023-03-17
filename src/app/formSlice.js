@@ -6,10 +6,10 @@ const initialState = {
   // inflationRate: "", // %
   // controls: {
   //   customCo2: false,
-  // errors: [],
+  // errors: {},
   // },
   annualCO2: 5.5,
-  purchases: [{ month: 1, year: 2025, trees: "23" }],
+  purchases: [{ month: 1, year: 2025, trees: 23 }],
   inflationRate: "asd",
   controls: {
     customCo2: false,
@@ -78,7 +78,12 @@ export const formSlice = createSlice({
         controls: { ...state.controls, errors: action.payload },
       };
     },
-    clearError: (state, action) => {},
+    clearErrors: (state) => {
+      return {
+        ...state,
+        controls: { ...state.controls, errors: initialState.controls.errors },
+      };
+    },
   },
 });
 
@@ -90,7 +95,7 @@ export const {
   addPurchase,
   setInflationRate,
   setErrors,
-  clearError,
+  clearErrors,
 } = formSlice.actions;
 
 export default formSlice.reducer;

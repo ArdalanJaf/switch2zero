@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setErrors } from "../app/formSlice";
+import { setErrors, clearErrors } from "../app/formSlice";
 import FormCO2 from "./FormCO2";
 import Form from "react-bootstrap/Form";
 import FormTreePurchases from "./FormTreePurchases";
@@ -17,6 +17,11 @@ export default function InputForm() {
   const form = useSelector((state) => state.form);
   const errors = form.controls.errors;
 
+  const handleClick = async () => {
+    dispatch(clearErrors());
+    sendFormData();
+  };
+
   const sendFormData = async () => {
     // make sure you turn annualCO2 into KG (*1000), sort, etc
     const formatFormForAPI = (form) => {
@@ -26,11 +31,11 @@ export default function InputForm() {
       return formatedForm;
     };
 
-    console.log(formatFormForAPI(form));
+    // console.log(formatFormForAPI(form));
 
     // send to API
     const res = await axios.post(API_URL + "/", formatFormForAPI(form));
-    console.log(res.data.result.errors);
+    console.log(res.data.result);
     if (res.data.result.errors)
       return dispatch(setErrors(res.data.result.errors));
 
@@ -55,7 +60,7 @@ export default function InputForm() {
       {hasErrs && <ErrorMsgs />}
       <div className="d-grid gap-2 mt-3">
         <Button
-          onClick={sendFormData}
+          onClick={handleClick}
           size="lg"
           variant="success"
           className="shadow-lg"
