@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledGraph = styled.div`
-  background-color: #fff;
+  /* background-color: #fff; */
   padding: 0.5em;
   padding-top: 1.5em;
   border-radius: 5px;
@@ -15,16 +15,16 @@ const StyledGraph = styled.div`
   } */
 
   text {
-    font-size: 0.7em;
-    tspan {
-      /* rotate: 90; */
-    }
+    font-size: 0.8em;
   }
 
   .referenceLine {
     z-index: 100;
     font-size: 1.5em;
-    color: black;
+    tspan {
+      /* fill: black !important;
+      stroke: black !important; */
+    }
   }
 `;
 

@@ -18,10 +18,7 @@ export default function OffsetGraph() {
   const { graphData, monthlyCO2Emmissions } = useSelector(
     (state) => state.data
   );
-  let domainMax =
-    graphData[graphData.length - 1].offset >= monthlyCO2Emmissions
-      ? graphData[graphData.length - 1].offset
-      : monthlyCO2Emmissions + 100;
+
   return (
     <StyledGraph>
       <ResponsiveContainer width="99%" height="99%">
@@ -40,18 +37,8 @@ export default function OffsetGraph() {
             fillOpacity={1}
           />
 
-          <ReferenceLine
-            y={monthlyCO2Emmissions}
-            stroke="red"
-            strokeWidth={2}
-            ifOverflow="extendDomain"
-            label="Monthly CO2 Emmissions"
-            className="referenceLine"
-          />
-
           <XAxis
             dataKey="date"
-            interval={Number((graphData.length / 7).toFixed(0))}
             tickFormatter={(date) => {
               return dateUtils.unixToMonthYear(date);
             }}
@@ -65,6 +52,16 @@ export default function OffsetGraph() {
             axisLine={false}
             tickFormatter={(value) => `${value}kg`}
           />
+
+          <ReferenceLine
+            y={monthlyCO2Emmissions}
+            stroke="#dc3545"
+            strokeWidth={2}
+            // ifOverflow="extendDomain"
+            className="referenceLine"
+            label="Monthly CO2 Emmissions"
+          />
+
           <Tooltip
             content={
               <GraphTooltip
@@ -78,4 +75,8 @@ export default function OffsetGraph() {
       </ResponsiveContainer>
     </StyledGraph>
   );
+}
+
+function ReferenceLineLabel() {
+  return <div></div>;
 }
