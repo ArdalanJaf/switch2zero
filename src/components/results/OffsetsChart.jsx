@@ -25,8 +25,8 @@ export default function OffsetGraph() {
         <AreaChart data={graphData}>
           <defs>
             <linearGradient id="offsetGradient" x1="1" x2="0" y1="0" y2="0">
-              <stop offset="10%" stopColor="#1c99ff" stopOpacity={1} />
-              <stop offset="75%" stopColor="#1c99ff" stopOpacity={0.4} />
+              <stop offset="10%" stopColor="#2ed4e7" stopOpacity={1} />
+              <stop offset="35%" stopColor="#1c99ff" stopOpacity={1} />
             </linearGradient>
           </defs>
 

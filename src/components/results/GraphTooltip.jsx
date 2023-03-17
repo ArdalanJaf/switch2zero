@@ -2,23 +2,26 @@ import numeral from "numeral";
 import React from "react";
 import { useSelector } from "react-redux";
 import dateUtils from "../../utils/dateUtils";
-import StyledGraphTooltip from "../../styles/GraphTooltip.Styled";
-import { Alert } from "react-bootstrap";
 import styled from "styled-components";
+import centsToDollars from "../../utils/centsToDollars";
 
 const StyledTooltip = styled.div`
   font-weight: 600;
-  background-color: #f5f5f57a;
+  background-color: #f5f5f599;
   ul {
     list-style: none;
   }
 
-  li:nth-of-type(2) span {
+  .co2Span {
     color: #dc3545;
   }
 
-  span:last-of-type {
+  .offsetSpan {
     color: #1c99ff;
+  }
+
+  .costSpan {
+    color: #227f22;
   }
 `;
 
@@ -33,22 +36,25 @@ export default function GraphTooltip({ active, payload, label, type }) {
             <li>{dateUtils.unixToMonthYear(label)}</li>
 
             <li>
-              <span> Emissions:</span> {monthlyCO2Emmissions} kgCO<sub>2</sub>{" "}
+              <span className="co2Span"> Emissions:</span>{" "}
+              {monthlyCO2Emmissions} kgCO<sub>2</sub>{" "}
             </li>
             <li>
-              <span>Offset:</span> {payload[0].value} kgCO<sub>2</sub>{" "}
+              <span className="offsetSpan">Offset:</span> {payload[0].value}{" "}
+              kgCO<sub>2</sub>{" "}
             </li>
           </ul>
         )}
 
-        {/* : (
-          <p>
-            Cost:{" "}
-            <span style={{ color: "#b88802" }}>
-              ${numeral(payload[0].value).format("0,000,000.00")}
-            </span>
-          </p>
-        )} */}
+        {type === "cost" && (
+          <ul className="list-group list-group-flush">
+            <li>{dateUtils.unixToMonthYear(label)}</li>
+            <li>
+              <span className="costSpan"> Cost:</span> USD{" "}
+              {centsToDollars(payload[0].value)}
+            </li>
+          </ul>
+        )}
       </StyledTooltip>
     );
   }

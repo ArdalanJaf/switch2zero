@@ -8,6 +8,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import OffsetGraph from "./components/results/OffsetsChart";
+import CostsGraph from "./components/results/CostsGraph";
 
 function App() {
   const data = useSelector((state) => state.data);
@@ -28,6 +29,7 @@ function App() {
             <Col>
               <Summary />
               <OffsetGraph />
+              <CostsGraph />
             </Col>
           )}
         </Row>
