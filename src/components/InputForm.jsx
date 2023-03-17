@@ -54,7 +54,12 @@ export default function InputForm() {
       <FormInflationRate />
       {hasErrs && <ErrorMsgs />}
       <div className="d-grid gap-2 mt-3">
-        <Button onClick={sendFormData} size="lg" variant="success">
+        <Button
+          onClick={sendFormData}
+          size="lg"
+          variant="success"
+          className="shadow-lg"
+        >
           Submit
         </Button>
       </div>

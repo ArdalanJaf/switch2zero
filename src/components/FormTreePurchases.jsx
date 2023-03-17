@@ -45,6 +45,7 @@ export default function FormTreePurchases() {
           variant="primary"
           size="sm"
           onClick={() => dispatch(addPurchase())}
+          className="shadow-md"
         >
           Add purchase
         </Button>
