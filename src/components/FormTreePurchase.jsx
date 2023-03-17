@@ -1,61 +1,92 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPurchase, delPurchase } from "../app/formSlice";
+import ErrorMsg from "./ErrorMsgs";
 import months from "../config/months";
 import years from "../config/years";
 import DeleteIcon from "../assets/icons/DeleteIcon";
 import Form from "react-bootstrap/Form";
+import { formErrorBorder } from "../config/formErrorBorder";
 
 export default function FormTreePurchase({ treePurchase, index }) {
   const dispatch = useDispatch();
-  const { purchases } = useSelector((state) => state.form);
+  const {
+    purchases,
+    controls: { errors },
+  } = useSelector((state) => state.form);
+
+  // needed because purchase errors are in an array
+  const checkForErr = (errors, field, index) => {
+    if (errors[field]) {
+      return errors[field].find((err) => err.index === index);
+    } else {
+      return false;
+    }
+  };
+
+  let err = checkForErr(errors, "purchases", index) || {
+    month: "",
+    year: "",
+    trees: "",
+  };
 
   return (
     <tr>
+      {/* # */}
       <td>{index + 1}</td>
+
+      {/* month & year */}
       <td className="d-flex">
-        <Form.Select
-          value={purchases[index].month}
-          onChange={(e) =>
-            dispatch(
-              setPurchase({
-                index,
-                key: "month",
-                value: Number(e.target.value),
-              })
-            )
-          }
-          className="me-2"
-          aria-label="months"
-        >
-          <option value={""}>Month</option>
-          {months.map((m, i) => (
-            <option key={i} value={i}>
-              {m}
-            </option>
-          ))}
-        </Form.Select>
-        <Form.Select
-          value={purchases[index].year}
-          onChange={(e) =>
-            dispatch(
-              setPurchase({
-                index,
-                key: "year",
-                value: Number(e.target.value),
-              })
-            )
-          }
-          aria-label="year"
-        >
-          <option value={""}>Year</option>
-          {years.map((m) => (
-            <option key={m} value={m}>
-              {m}
-            </option>
-          ))}
-        </Form.Select>
+        <div className="d-flex flex-column pe-2 flex-grow-1">
+          <Form.Select
+            value={purchases[index].month}
+            onChange={(e) =>
+              dispatch(
+                setPurchase({
+                  index,
+                  key: "month",
+                  value: Number(e.target.value),
+                })
+              )
+            }
+            aria-label="months"
+            className={err.month && formErrorBorder}
+          >
+            <option value={""}>Month</option>
+            {months.map((m, i) => (
+              <option key={i} value={i}>
+                {m}
+              </option>
+            ))}
+          </Form.Select>
+        </div>
+        <div className="d-flex flex-column flex-grow-1">
+          <Form.Select
+            value={purchases[index].year}
+            onChange={(e) =>
+              dispatch(
+                setPurchase({
+                  index,
+                  key: "year",
+                  value: Number(e.target.value),
+                })
+              )
+            }
+            aria-label="year"
+            className={err.year && formErrorBorder}
+          >
+            <option value={""}>Year</option>
+            {years.map((m) => (
+              <option key={m} value={m}>
+                {m}
+              </option>
+            ))}
+          </Form.Select>
+          {err.year && <ErrorMsg msg={err.year} />}
+        </div>
       </td>
+
+      {/* number of trees */}
       <td>
         <Form.Control
           value={purchases[index].trees}
@@ -71,8 +102,11 @@ export default function FormTreePurchase({ treePurchase, index }) {
             )
           }
           aria-label="Number of trees"
+          className={err.trees && formErrorBorder}
         ></Form.Control>
       </td>
+
+      {/* delete row */}
       <td>
         <div
           onClick={() => dispatch(delPurchase(index))}

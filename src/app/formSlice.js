@@ -6,12 +6,14 @@ const initialState = {
   // inflationRate: "", // %
   // controls: {
   //   customCo2: false,
+  // errors: [],
   // },
-  annualCO2: "5.5",
-  purchases: [{ month: 1, year: 2025, trees: 23 }],
-  inflationRate: "",
+  annualCO2: 5.5,
+  purchases: [{ month: 1, year: 2025, trees: "23" }],
+  inflationRate: "asd",
   controls: {
     customCo2: false,
+    errors: {},
   },
 };
 
@@ -23,7 +25,10 @@ export const formSlice = createSlice({
       return { ...state, annualCO2: action.payload };
     },
     setCustomCo2: (state, action) => {
-      return { ...state, controls: { customCo2: action.payload } };
+      return {
+        ...state,
+        controls: { ...state.controls, customCo2: action.payload },
+      };
     },
     setPurchase: (state, action) => {
       const { index, key, value } = action.payload;
@@ -67,6 +72,13 @@ export const formSlice = createSlice({
     setInflationRate: (state, action) => {
       return { ...state, inflationRate: action.payload };
     },
+    setErrors: (state, action) => {
+      return {
+        ...state,
+        controls: { ...state.controls, errors: action.payload },
+      };
+    },
+    clearError: (state, action) => {},
   },
 });
 
@@ -77,6 +89,8 @@ export const {
   delPurchase,
   addPurchase,
   setInflationRate,
+  setErrors,
+  clearError,
 } = formSlice.actions;
 
 export default formSlice.reducer;

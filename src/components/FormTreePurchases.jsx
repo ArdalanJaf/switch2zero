@@ -8,13 +8,13 @@ import Button from "react-bootstrap/Button";
 
 export default function FormTreePurchases() {
   const dispatch = useDispatch();
-  const { purchases, controls } = useSelector((state) => state.form);
+  const { purchases } = useSelector((state) => state.form);
   let totalTrees = 0;
-  purchases.map((p) => (totalTrees += p.trees));
+  purchases.map((p) => (totalTrees += Number(p.trees)));
 
   return (
     <>
-      <Form.Group className="mb-5">
+      <Form.Group className="mb-4">
         <h4>Tree Purchases</h4>
         <Form.Text className="d-block mb-2">
           Plan your tree purchases by adding a purchase at different times. You
@@ -41,7 +41,11 @@ export default function FormTreePurchases() {
             </tr>
           </tbody>
         </Table>
-        <Button variant="primary" onClick={() => dispatch(addPurchase())}>
+        <Button
+          variant="primary"
+          size="sm"
+          onClick={() => dispatch(addPurchase())}
+        >
           Add purchase
         </Button>
       </Form.Group>
