@@ -7,7 +7,7 @@ const initialState = {
   // controls: {
   //   customCo2: false,
   // },
-  annualCO2: 5.5,
+  annualCO2: "5.5",
   purchases: [{ month: 1, year: 2025, trees: 23 }],
   inflationRate: "",
   controls: {

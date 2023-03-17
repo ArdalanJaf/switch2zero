@@ -15,8 +15,13 @@ export default function InputForm() {
   const sendFormData = async () => {
     // make sure you turn annualCO2 into KG (*1000), sort, etc
     const formatFormForAPI = (form) => {
-      return (form.annualCO2 = form.annualCO2 * 1000); // turn to kg
+      const formatedForm = JSON.parse(JSON.stringify(form));
+      delete formatedForm.controls;
+      // formatedForm.annualCO2 = formatedForm.annualCO2 * 1000; // turn to kg
+      return formatedForm;
     };
+    console.log(form);
+    console.log(formatFormForAPI(form));
 
     // send to API
     const result = await axios.post(API_URL + "/", formatFormForAPI(form));
@@ -24,7 +29,7 @@ export default function InputForm() {
     // handle errors || store data
 
     // console.log(annualCO2);
-    console.log(formCheck(form));
+    console.log(result.data);
   };
 
   // checks form input is valid
@@ -59,7 +64,7 @@ export default function InputForm() {
       <FormInflationRate />
       <Button
         onClick={sendFormData}
-        disabled={formCheck(form) === true ? false : true}
+        // disabled={formCheck(form) === true ? false : true}
         size="lg"
         variant="success"
       >
