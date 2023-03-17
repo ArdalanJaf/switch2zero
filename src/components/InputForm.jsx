@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrors, clearErrors } from "../app/formSlice";
+import { setData } from "../app/dataSlice";
 import FormCO2 from "./FormCO2";
 import Form from "react-bootstrap/Form";
 import FormTreePurchases from "./FormTreePurchases";
@@ -38,16 +39,8 @@ export default function InputForm() {
     console.log(res.data.result);
     if (res.data.result.errors)
       return dispatch(setErrors(res.data.result.errors));
-
+    return dispatch(setData(res.data.result));
     // handle errors || store data
-  };
-
-  const checkForErr = (errors, field = false, index = false) => {
-    if (errors[field]) {
-      return errors[field].find((err) => err.index === index);
-    } else {
-      return false;
-    }
   };
 
   let hasErrs = Object.entries(errors).length > 0;
