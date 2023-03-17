@@ -5,19 +5,24 @@ import Form from "react-bootstrap/Form";
 import FormTreePurchases from "./FormTreePurchases";
 import Button from "react-bootstrap/Button";
 import FormInflationRate from "./FormInflationRate";
+import axios from "axios";
+import { API_URL } from "../api/API_URL";
 
 export default function InputForm() {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
 
-  const handleClick = () => {
-    // make sure you turn annualCO2 into KG (*1000)
+  const sendFormData = async () => {
+    // make sure you turn annualCO2 into KG (*1000), sort, etc
+    const formatFormForAPI = (form) => {
+      return (form.annualCO2 = form.annualCO2 * 1000); // turn to kg
+    };
 
     // send to API
+    const result = await axios.post(API_URL + "/", formatFormForAPI(form));
 
     // handle errors || store data
 
-    console.log("click");
     // console.log(annualCO2);
     console.log(formCheck(form));
   };
@@ -53,7 +58,7 @@ export default function InputForm() {
       <FormTreePurchases />
       <FormInflationRate />
       <Button
-        onClick={handleClick}
+        onClick={sendFormData}
         disabled={formCheck(form) === true ? false : true}
         size="lg"
         variant="success"
