@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPurchase, delPurchase } from "../../app/formSlice";
-import ErrorMsg from "./ErrorMsgs";
 import Form from "react-bootstrap/Form";
 import { formErrorBorder } from "../../config/formErrorBorder";
 import months from "../../config/months";
@@ -55,7 +54,7 @@ export default function TreePurchase({ treePurchase, index }) {
             <option value={""}>Month</option>
             {months.map((m, i) => (
               <option key={i} value={i}>
-                {m}
+                {m.substring(0, 3)}
               </option>
             ))}
           </Form.Select>
@@ -82,7 +81,6 @@ export default function TreePurchase({ treePurchase, index }) {
               </option>
             ))}
           </Form.Select>
-          {err.year && <ErrorMsg msg={err.year} />}
         </div>
       </td>
 
