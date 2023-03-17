@@ -9,6 +9,12 @@ const dateUtils = {
   unixToYear: (unix) => {
     return new Date(unix).getUTCFullYear();
   },
+  unixToMonthYear: (unix) => {
+    let date = new Date(unix);
+    return (
+      months[date.getMonth()].substring(0, 3) + "-" + date.getUTCFullYear()
+    );
+  },
 };
 
 export default dateUtils;

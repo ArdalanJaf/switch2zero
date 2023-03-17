@@ -11,7 +11,7 @@ import ErrorMsgs from "./ErrorMsgs";
 import axios from "axios";
 import { API_URL } from "../../api/API_URL";
 
-export default function MainForm() {
+export default function FormMain() {
   const dispatch = useDispatch();
   const form = useSelector((state) => state.form);
   const errors = form.controls.errors;

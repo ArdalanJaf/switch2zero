@@ -35,7 +35,7 @@ export default function TreePurchase({ treePurchase, index }) {
       <td>{index + 1}</td>
 
       {/* month & year */}
-      <td className="d-flex">
+      <td className="d-flex tableFix">
         <div className="d-flex flex-column pe-2 flex-grow-1">
           <Form.Select
             value={purchases[index].month}

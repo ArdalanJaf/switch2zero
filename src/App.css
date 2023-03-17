@@ -4,8 +4,22 @@
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 input,
 select {
   max-height: 38px;
+}
+
+.tableFix {
+  min-height: 55px;
+}
+
+p,
+input,
+select,
+label,
+li {
+  font-size: 0.9rem !important;
+  line-height: 1.6;
 }
