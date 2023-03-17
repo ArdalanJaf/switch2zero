@@ -12,13 +12,13 @@ export default function TreePurchases() {
 
   return (
     <>
-      <Form.Group className="mb-4">
+      <Form.Group className="mb-4 border-top pt-3">
         <h4>Tree Purchases</h4>
         <p className="d-block mb-2">
           Plan your tree purchases by adding a purchase at different times. You
           may only purchase a maximum of 55 trees per year.
         </p>
-        <Table>
+        <Table className="mb-1">
           <thead>
             <tr>
               <th>#</th>
@@ -42,11 +42,11 @@ export default function TreePurchases() {
           </tbody>
         </Table>
         <Button
-          variant="primary"
+          variant="success"
           onClick={() => dispatch(addPurchase())}
-          className="shadow-md w-100 fw-bold "
+          className="shadow-md fw-bold w-50 text-light "
           size="sm"
-          // style={{ marginTop: "-6em" }}
+          // style={{ marginTop: "-1em" }}
         >
           Add purchase
         </Button>

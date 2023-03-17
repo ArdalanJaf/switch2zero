@@ -9,12 +9,12 @@ export default function InflationRate() {
   const { inflationRate, controls } = useSelector((state) => state.form);
 
   return (
-    <Form.Group className="mb-1">
-      <h5>Inflation (optional)</h5>
-      <Form.Text className="d-block mb-2">
+    <Form.Group className="mb-3 py-3 border-top border-bottom ">
+      <h4>Inflation (optional)</h4>
+      <p className="d-block mb-2">
         Add in inflation rate which will annually increase the cost of planting
         new trees.
-      </Form.Text>
+      </p>
 
       <Form.Label>
         Rate (%):

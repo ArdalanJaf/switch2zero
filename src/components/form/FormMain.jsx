@@ -53,8 +53,8 @@ export default function FormMain() {
         <Button
           onClick={handleClick}
           size="lg"
-          variant="success"
-          className="shadow-lg"
+          variant="primary"
+          className="shadow-lg mt-2"
         >
           Submit
         </Button>
