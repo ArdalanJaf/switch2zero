@@ -14,11 +14,12 @@ export default function FormTreePurchases() {
 
   return (
     <>
-      <Form.Group>
-        <p>
+      <Form.Group className="mb-5">
+        <h4>Tree Purchases</h4>
+        <Form.Text className="d-block mb-2">
           Plan your tree purchases by adding a purchase at different times. You
           may only purchase a maximum of 55 trees per year.
-        </p>
+        </Form.Text>
         <Table>
           <thead>
             <tr>
@@ -35,7 +36,7 @@ export default function FormTreePurchases() {
             <tr>
               <td />
               <td />
-              <td>Total: {totalTrees}</td>
+              <td>Total: {totalTrees} </td>
               <td />
             </tr>
           </tbody>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   annualCO2: "",
   purchases: [{ month: "", year: "", trees: "" }],
+  inflationRate: "",
   controls: {
     customCo2: false,
   },
@@ -34,7 +35,7 @@ export const formSlice = createSlice({
         newValue =
           currentYearValue + value <= 55 ? value : 55 - currentYearValue;
 
-        //trigger notification so user knows they reached max?
+        // trigger notification so user knows they reached max?
       }
 
       newPurchases[index][key] = newValue;
@@ -49,13 +50,16 @@ export const formSlice = createSlice({
     addPurchase: (state) => {
       let newPurchases = JSON.parse(JSON.stringify(state.purchases));
 
-      // copy last month & year for more convenient user experience
+      // copy last purchase month & year for more convenient user experience
       let newPurchase = JSON.parse(
         JSON.stringify(newPurchases[newPurchases.length - 1])
       );
-      newPurchase.trees = 0;
+      newPurchase.trees = "";
       newPurchases.push(newPurchase);
       return { ...state, purchases: newPurchases };
+    },
+    setInflationRate: (state, action) => {
+      return { ...state, inflationRate: action.payload };
     },
   },
 });
@@ -66,6 +70,7 @@ export const {
   setPurchase,
   delPurchase,
   addPurchase,
+  setInflationRate,
 } = formSlice.actions;
 
 export default formSlice.reducer;
