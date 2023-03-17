@@ -49,12 +49,12 @@ export default function FormMain() {
       <FormTreePurchases />
       <FormInflationRate />
       {hasErrs && <ErrorMsgs />}
-      <div className="d-grid gap-2 mt-3">
+      <div className="d-grid gap-2 mt-3 ">
         <Button
           onClick={handleClick}
           size="lg"
           variant="primary"
-          className="shadow-lg mt-2"
+          className="shadow-lg mt-2 fw-bold"
         >
           Submit
         </Button>

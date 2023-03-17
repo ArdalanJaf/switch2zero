@@ -2,65 +2,67 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Alert } from "react-bootstrap";
 import dateUtils from "../../utils/dateUtils";
-import numeral from "numeral";
+import centsToDollars from "../../utils/centsToDollars";
 
 export default function Summary() {
   const {
     totalTime,
     totalTrees,
-    costs,
+    costs: { initial, upkeep, ongoingUpkeep },
     treesNeeded,
     carbonNeutralDate,
     monthlyCO2Offset,
     monthlyCO2Emmissions,
   } = useSelector((state) => state.data);
+  const { unixToMonth, unixToYear } = dateUtils;
 
   const hasNeutral = carbonNeutralDate === null ? false : true;
 
-  let initial = costs.initial / 100;
-  let upkeep = costs.upkeep / 100;
-  let ongoingUpkeep = costs.ongoingUpkeep / 100;
-
   return (
-    <div>
-      <Alert variant="info">
-        <ul>
-          <li className="mb-3">
+    <div className="">
+      <ul className="ps-0" style={{ listStyle: "none" }}>
+        <li className="mb-3">
+          <Alert variant="success shadow">
             {hasNeutral &&
-              `You will achieve carbon neutrality in ${dateUtils.unixToMonth(
+              `You will achieve carbon neutrality in  ${unixToMonth(
                 carbonNeutralDate
-              )} ${dateUtils.unixToYear(carbonNeutralDate)} with ${
+              )} ${unixToYear(carbonNeutralDate)} with ${
                 totalTrees + treesNeeded
-              } planted!`}
+              } trees planted!`}
             {!hasNeutral &&
               `You have not planted enough trees to achieve carbon neutrality. You need to purchase at least ${treesNeeded} more trees.`}
-          </li>
-          <li className="mb-3">
+          </Alert>
+        </li>
+
+        <li className="mb-3">
+          <Alert variant="success shadow-sm">
             {hasNeutral &&
-              `Your monthly maintanence cost at this point is USD ${numeral(
+              `Your monthly maintanence cost at this point is USD${centsToDollars(
                 ongoingUpkeep
-              ).format("0,000,000.00")}.`}{" "}
+              )}.`}{" "}
             {!hasNeutral &&
-              `Your monthly maintance cost at this point is USD ${numeral(
+              `Your monthly maintance cost at this point is USD ${centsToDollars(
                 ongoingUpkeep
-              ).format("0,000,000.00")}. With which you only offset ${(
+              )}. With which you only offset ${(
                 (monthlyCO2Offset / monthlyCO2Emmissions) *
                 100
               ).toFixed(2)}% of your CO2 emissions.`}
-          </li>
-          <li className="mb-3">
-            Your estimated expenditure over {totalTime.years} years{" "}
+          </Alert>
+        </li>
+
+        <li className="mb-3 ">
+          <Alert variant="success shadow-sm">
+            Your estimated expenditure over {totalTime.years} years
             {totalTime.months > 0 &&
               totalTime.months +
                 " month" +
                 (totalTime.months > 1 ? "s" : "")}{" "}
-            is USD {numeral(initial + upkeep).format("0,000,000.00")}. This
-            compromises USD {numeral(initial).format("0,000,000.00")} in initial
-            purchase costs and USD {numeral(upkeep).format("0,000,000.00")} in
-            maintenence fees.
-          </li>
-        </ul>
-      </Alert>
+            is USD {centsToDollars(initial + upkeep)}. This compromises USD{" "}
+            {centsToDollars(initial)} in initial purchase costs and USD{" "}
+            {centsToDollars(upkeep)} in maintenence fees.
+          </Alert>
+        </li>
+      </ul>
     </div>
   );
 }

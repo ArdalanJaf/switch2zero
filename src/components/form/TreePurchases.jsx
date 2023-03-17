@@ -44,7 +44,7 @@ export default function TreePurchases() {
         <Button
           variant="success"
           onClick={() => dispatch(addPurchase())}
-          className="shadow-md fw-bold w-50 text-light "
+          className="shadow-md fw-bold w-25 text-light "
           size="sm"
           // style={{ marginTop: "-1em" }}
         >
