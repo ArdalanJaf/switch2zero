@@ -7,6 +7,7 @@ import { Table, Form, Button } from "react-bootstrap";
 export default function TreePurchases() {
   const dispatch = useDispatch();
   const { purchases } = useSelector((state) => state.form);
+
   let totalTrees = 0;
   purchases.map((p) => (totalTrees += Number(p.trees)));
 
@@ -46,7 +47,6 @@ export default function TreePurchases() {
           onClick={() => dispatch(addPurchase())}
           className="shadow-md fw-bold w-25 text-light "
           size="sm"
-          // style={{ marginTop: "-1em" }}
         >
           Add purchase
         </Button>

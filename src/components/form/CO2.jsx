@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { avgAnnualCO2ByCountry } from "../../config/avgAnnualCO2ByCountry";
 import { setAnnualCO2, setCustomCo2 } from "../../app/formSlice";
-import { Form, Col, Row } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import { formErrorBorder } from "../../config/formErrorBorder";
+import { avgAnnualCO2ByCountry } from "../../config/avgAnnualCO2ByCountry";
 
 export default function CO2() {
   const dispatch = useDispatch();
@@ -22,7 +22,6 @@ export default function CO2() {
           <Form.Select
             onChange={(e) => dispatch(setAnnualCO2(Number(e.target.value)))}
             disabled={controls.customCo2 ? true : false}
-            className="text-center"
           >
             <option value={""}>Select country</option>
             {avgAnnualCO2ByCountry.map((c, i) => {
@@ -46,9 +45,7 @@ export default function CO2() {
               dispatch(setAnnualCO2(Number(e.target.value)));
             }}
             type="number"
-            className={`text-center ${
-              controls.errors.annualCO2 && formErrorBorder
-            }`}
+            className={controls.errors.annualCO2 && formErrorBorder}
           />
         </Form.Label>
       </div>

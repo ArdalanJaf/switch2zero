@@ -15,7 +15,6 @@ const StyledGraph = styled.div`
     font-size: 1.3em;
     tspan {
       fill: #000 !important;
-      /* stroke: black !important; */
     }
   }
 `;

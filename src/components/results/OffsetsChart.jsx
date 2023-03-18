@@ -50,7 +50,6 @@ export default function OffsetGraph() {
             />
 
             <YAxis
-              // domain={[0, domainMax]}
               type="number"
               dataKey="offset"
               axisLine={false}
@@ -61,7 +60,6 @@ export default function OffsetGraph() {
               y={monthlyCO2Emmissions}
               stroke="#dc3545"
               strokeWidth={2}
-              // ifOverflow="extendDomain"
               className="referenceLine"
               label="Monthly CO2 Emmissions"
             />
@@ -80,8 +78,4 @@ export default function OffsetGraph() {
       </StyledGraph>
     </div>
   );
-}
-
-function ReferenceLineLabel() {
-  return <div></div>;
 }

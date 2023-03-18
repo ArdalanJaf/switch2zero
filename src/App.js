@@ -2,13 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import FormMain from "./components/form/FormMain";
 import Summary from "./components/results/Summary";
-// import { Container, Row, Col, Accordion } from "react-bootstrap";
-import { Container, Row, Col } from "react-bootstrap";
 import TreeIcon from "./assets/icons/TreeIcon";
-import "./styles/App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import OffsetGraph from "./components/results/OffsetsChart";
 import CostsGraph from "./components/results/CostsGraph";
+import { Container, Row, Col } from "react-bootstrap";
+import "./styles/App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const data = useSelector((state) => state.data);

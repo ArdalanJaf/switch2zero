@@ -1,6 +1,6 @@
 import React from "react";
-import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import Form from "react-bootstrap/Form";
 import { Alert } from "react-bootstrap";
 
 function ErrorMsg({ msg }) {
@@ -24,7 +24,6 @@ export default function ErrorMsgs() {
           let found = errors.purchases.find((p) => {
             return Object.keys(p).includes(pk) === true;
           });
-          // console.log(pk);
           if (found) msgs.push(found[pk]);
         });
       } else {
@@ -35,8 +34,6 @@ export default function ErrorMsgs() {
   };
 
   msgs = getMsgs(errors, msgs);
-  // console.log(getMsgs(errors));
-  // let treesMsg = errors.purchases.find((e)=>e)
 
   return (
     <Alert variant="danger">

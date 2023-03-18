@@ -7,7 +7,7 @@ import months from "../../config/months";
 import years from "../../config/years";
 import DeleteIcon from "../../assets/icons/DeleteIcon";
 
-export default function TreePurchase({ treePurchase, index }) {
+export default function TreePurchase({ index }) {
   const dispatch = useDispatch();
   const {
     purchases,

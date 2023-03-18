@@ -1,9 +1,8 @@
-import numeral from "numeral";
 import React from "react";
 import { useSelector } from "react-redux";
 import dateUtils from "../../utils/dateUtils";
-import styled from "styled-components";
 import centsToDollars from "../../utils/centsToDollars";
+import styled from "styled-components";
 
 const StyledTooltip = styled.div`
   font-weight: 600;

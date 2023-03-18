@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Form from "react-bootstrap/Form";
 import { setInflationRate } from "../../app/formSlice";
+import Form from "react-bootstrap/Form";
 import { formErrorBorder } from "../../config/formErrorBorder";
 
 export default function InflationRate() {

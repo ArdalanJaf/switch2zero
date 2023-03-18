@@ -11,13 +11,11 @@ import {
 } from "recharts";
 import GraphTooltip from "./GraphTooltip";
 import dateUtils from "../../utils/dateUtils";
-import StyledGraph from "../../styles/Graph.styled";
 import centsToDollars from "../../utils/centsToDollars";
+import StyledGraph from "../../styles/Graph.styled";
 
 export default function CostsGraph() {
-  const { graphData, monthlyCO2Emmissions } = useSelector(
-    (state) => state.data
-  );
+  const { graphData } = useSelector((state) => state.data);
 
   return (
     <div className="border-top pt-4 mb-4">
