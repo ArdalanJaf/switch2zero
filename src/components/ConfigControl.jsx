@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setConfig, setSetting } from "../app/configSlice";
+import { setConfig, setSetting, setShowConfig } from "../app/configSlice";
 import axios from "axios";
 import { API_URL } from "../api/API_URL";
-import { Card, Table, Form, Button } from "react-bootstrap";
+import { Card, Table, Form, Button, CloseButton } from "react-bootstrap";
 import centsToDollars from "../utils/centsToDollars";
+import styled from "styled-components";
+
+const StyledPopout = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 export default function ConfigControl() {
   const dispatch = useDispatch();
-  const { current, updates } = useSelector((state) => state.config);
+  const { current, updates, menuOpen } = useSelector((state) => state.config);
   let configLoaded = Object.keys(current).length > 0;
 
   const settings = [
@@ -91,90 +99,95 @@ export default function ConfigControl() {
   }, []);
 
   return (
-    <Card>
-      <h2>Admin controls</h2>
-      <Card.Body>
-        {!configLoaded && "Loading..."}
-        {configLoaded && (
-          <Table>
-            <thead>
-              <tr>
-                <th>Setting</th>
-                <th>Current Value</th>
-                <th>New Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(current).map((k, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{settings[i]}</td>
-                    {i < 5 && (
-                      <>
-                        <td>{convertValues(current[k], k)}</td>
-                        <td>
-                          <Form.Control
-                            value={updates[k]}
-                            onChange={(e) => {
-                              dispatch(
-                                setSetting({
-                                  key: k,
-                                  value: Number(e.target.value),
-                                })
-                              );
-                            }}
-                            type="number"
-                            aria-label="input new value"
-                          />
-                        </td>
-                      </>
-                    )}
-                    {i >= 5 && (
-                      <>
-                        <td>{current[k] > 0 ? "True" : "False"}</td>
-                        <td>
-                          <Form.Check
-                            key={i}
-                            checked={updates[k] ? true : false}
-                            type="switch"
-                            onChange={() => {
-                              dispatch(
-                                setSetting({
-                                  key: k,
-                                  value: Number(updates[k] > 0 ? 0 : 1),
-                                })
-                              );
-                            }}
-                            aria-label="toggle on or off"
-                          />
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        )}
-        <div className="d-flex gap-1 justify-content-center ">
-          <Button
-            onClick={() => updateConfigOnAPI(updates)}
-            size="md"
-            variant="primary"
-            className="shadow-md mt-2 fw-bold px-4"
-          >
-            Submit
-          </Button>
-          <Button
-            onClick={resetConfigOnAPI}
-            size="md"
-            variant="secondary"
-            className="shadow-md mt-2 fw-bold px-4"
-          >
-            Default
-          </Button>
-        </div>{" "}
-      </Card.Body>
-    </Card>
+    <StyledPopout>
+      <Card className="p-1">
+        <div className="d-flex justify-content-end">
+          <CloseButton onClick={() => dispatch(setShowConfig())} />
+        </div>
+        <h2 className="text-center">Admin Controls</h2>
+        <Card.Body>
+          {!configLoaded && "Loading..."}
+          {configLoaded && (
+            <Table>
+              <thead>
+                <tr>
+                  <th>Setting</th>
+                  <th>Current Value</th>
+                  <th>New Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(current).map((k, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{settings[i]}</td>
+                      {i < 5 && (
+                        <>
+                          <td>{convertValues(current[k], k)}</td>
+                          <td>
+                            <Form.Control
+                              value={updates[k]}
+                              onChange={(e) => {
+                                dispatch(
+                                  setSetting({
+                                    key: k,
+                                    value: Number(e.target.value),
+                                  })
+                                );
+                              }}
+                              type="number"
+                              aria-label="input new value"
+                            />
+                          </td>
+                        </>
+                      )}
+                      {i >= 5 && (
+                        <>
+                          <td>{current[k] > 0 ? "True" : "False"}</td>
+                          <td>
+                            <Form.Check
+                              key={i}
+                              checked={updates[k] ? true : false}
+                              type="switch"
+                              onChange={() => {
+                                dispatch(
+                                  setSetting({
+                                    key: k,
+                                    value: Number(updates[k] > 0 ? 0 : 1),
+                                  })
+                                );
+                              }}
+                              aria-label="toggle on or off"
+                            />
+                          </td>
+                        </>
+                      )}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          )}
+          <div className="d-flex gap-1 justify-content-center ">
+            <Button
+              onClick={() => updateConfigOnAPI(updates)}
+              size="md"
+              variant="primary"
+              className="shadow-md mt-2 fw-bold px-4"
+            >
+              Submit
+            </Button>
+            <Button
+              onClick={resetConfigOnAPI}
+              size="md"
+              variant="secondary"
+              className="shadow-md mt-2 fw-bold px-4"
+            >
+              Default
+            </Button>
+          </div>{" "}
+        </Card.Body>
+      </Card>
+    </StyledPopout>
   );
 }

@@ -11,6 +11,7 @@ const initialState = {
     useFractionalExponential: 0,
     applyInflationToUpkeep: 0,
   },
+  showConfig: true,
 };
 
 export const configSlice = createSlice({
@@ -19,6 +20,7 @@ export const configSlice = createSlice({
   reducers: {
     setConfig: (state, action) => {
       return {
+        ...state,
         current: action.payload,
         updates: {
           ...initialState.updates,
@@ -34,9 +36,12 @@ export const configSlice = createSlice({
       newUpdates[action.payload.key] = action.payload.value;
       return { ...state, updates: newUpdates };
     },
+    setShowConfig: (state, action) => {
+      return { ...state, showConfig: !state.showConfig };
+    },
   },
 });
 
-export const { setConfig, setSetting } = configSlice.actions;
+export const { setConfig, setSetting, setShowConfig } = configSlice.actions;
 
 export default configSlice.reducer;
