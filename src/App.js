@@ -2,17 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import FormMain from "./components/form/FormMain";
 import Summary from "./components/results/Summary";
+import HeaderButtons from "./components/HeaderButtons";
+import ConfigControl from "./components/ConfigControl";
 import TreeIcon from "./assets/icons/TreeIcon";
 import OffsetGraph from "./components/results/OffsetsChart";
 import CostsGraph from "./components/results/CostsGraph";
+import objHasLength from "./utils/objHasLength";
 import { Container, Row, Col } from "react-bootstrap";
 import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import HeaderButtons from "./components/HeaderButtons";
-import ConfigControl from "./components/ConfigControl";
-
-import objHasLength from "./utils/objHasLength";
 function App() {
   const data = useSelector((state) => state.data);
   const showConfig = useSelector((state) => state.config.showConfig);
