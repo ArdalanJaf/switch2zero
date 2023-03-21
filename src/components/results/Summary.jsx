@@ -39,7 +39,7 @@ export default function Summary() {
         <li className="mb-3">
           <Alert variant={`${alertColor} shadow-sm`}>
             {hasNeutral &&
-              `Your monthly maintanence cost at this point is USD${centsToDollars(
+              `Your monthly maintanence cost at this point is USD ${centsToDollars(
                 ongoingUpkeep
               )}.`}{" "}
             {!hasNeutral &&
