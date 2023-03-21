@@ -3,21 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { setConfig, setSetting, setShowConfig } from "../app/configSlice";
 import axios from "axios";
 import { API_URL } from "../api/API_URL";
-import { Card, Table, Form, Button, CloseButton } from "react-bootstrap";
+import Login from "./Login";
 import centsToDollars from "../utils/centsToDollars";
-import styled from "styled-components";
-
-const StyledPopout = styled.div`
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-`;
+import objHasLength from "../utils/objHasLength";
+import StyledPopout from "../styles/Popout.styled";
+import { Card, Table, Form, Button, CloseButton } from "react-bootstrap";
 
 export default function ConfigControl() {
   const dispatch = useDispatch();
-  const { current, updates, menuOpen } = useSelector((state) => state.config);
-  let configLoaded = Object.keys(current).length > 0;
+  const { current, updates, login } = useSelector((state) => state.config);
+  let configLoaded = objHasLength(current);
 
   const settings = [
     "Tree initial cost (US $)",
@@ -33,7 +28,9 @@ export default function ConfigControl() {
 
   const getConfigFromAPI = async () => {
     try {
-      const res = await axios.get(API_URL + "/config");
+      const res = await axios.get(API_URL + "/config", {
+        headers: { token: login.token, userId: login.userId },
+      });
       dispatch(setConfig(res.data.config));
     } catch (errors) {
       console.log(errors);
@@ -42,7 +39,9 @@ export default function ConfigControl() {
 
   const resetConfigOnAPI = async () => {
     try {
-      await axios.post(API_URL + "/default_config");
+      await axios.post(API_URL + "/default_config", {
+        headers: { token: login.token, userId: login.userId },
+      });
       getConfigFromAPI();
     } catch (errors) {
       console.log(errors);
@@ -67,7 +66,10 @@ export default function ConfigControl() {
     try {
       const res = await axios.post(
         API_URL + "/update_config",
-        prepConfig(config)
+        prepConfig(config),
+        {
+          headers: { token: login.token, userId: login.userId },
+        }
       );
       if (res.data.errors)
         return res.data.errors.forEach((e) => console.log("API Error: " + e));
@@ -95,8 +97,9 @@ export default function ConfigControl() {
 
   useEffect(() => {
     // get current config data on render
-    getConfigFromAPI();
-  }, []);
+    if (login.token) getConfigFromAPI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [login]);
 
   return (
     <StyledPopout>
@@ -106,86 +109,89 @@ export default function ConfigControl() {
         </div>
         <h2 className="text-center">Admin Controls</h2>
         <Card.Body>
-          {!configLoaded && "Loading..."}
-          {configLoaded && (
-            <Table>
-              <thead>
-                <tr>
-                  <th>Setting</th>
-                  <th>Current Value</th>
-                  <th>New Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(current).map((k, i) => {
-                  return (
-                    <tr key={i}>
-                      <td>{settings[i]}</td>
-                      {i < 5 && (
-                        <>
-                          <td>{convertValues(current[k], k)}</td>
-                          <td>
-                            <Form.Control
-                              value={updates[k]}
-                              onChange={(e) => {
-                                dispatch(
-                                  setSetting({
-                                    key: k,
-                                    value: Number(e.target.value),
-                                  })
-                                );
-                              }}
-                              type="number"
-                              aria-label="input new value"
-                            />
-                          </td>
-                        </>
-                      )}
-                      {i >= 5 && (
-                        <>
-                          <td>{current[k] > 0 ? "True" : "False"}</td>
-                          <td>
-                            <Form.Check
-                              key={i}
-                              checked={updates[k] ? true : false}
-                              type="switch"
-                              onChange={() => {
-                                dispatch(
-                                  setSetting({
-                                    key: k,
-                                    value: Number(updates[k] > 0 ? 0 : 1),
-                                  })
-                                );
-                              }}
-                              aria-label="toggle on or off"
-                            />
-                          </td>
-                        </>
-                      )}
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </Table>
+          {!login.token && <Login />}
+          {login.token && !configLoaded && "Loading..."}
+          {login.token && configLoaded && (
+            <>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Setting</th>
+                    <th>Current Value</th>
+                    <th>New Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.keys(current).map((k, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{settings[i]}</td>
+                        {i < 5 && (
+                          <>
+                            <td>{convertValues(current[k], k)}</td>
+                            <td>
+                              <Form.Control
+                                value={updates[k]}
+                                onChange={(e) => {
+                                  dispatch(
+                                    setSetting({
+                                      key: k,
+                                      value: Number(e.target.value),
+                                    })
+                                  );
+                                }}
+                                type="number"
+                                aria-label="input new value"
+                              />
+                            </td>
+                          </>
+                        )}
+                        {i >= 5 && (
+                          <>
+                            <td>{current[k] > 0 ? "True" : "False"}</td>
+                            <td>
+                              <Form.Check
+                                key={i}
+                                checked={updates[k] ? true : false}
+                                type="switch"
+                                onChange={() => {
+                                  dispatch(
+                                    setSetting({
+                                      key: k,
+                                      value: Number(updates[k] > 0 ? 0 : 1),
+                                    })
+                                  );
+                                }}
+                                aria-label="toggle on or off"
+                              />
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+              <div className="d-flex gap-1 justify-content-center ">
+                <Button
+                  onClick={() => updateConfigOnAPI(updates)}
+                  size="md"
+                  variant="primary"
+                  className="shadow-md mt-2 fw-bold px-4"
+                >
+                  Submit
+                </Button>
+                <Button
+                  onClick={resetConfigOnAPI}
+                  size="md"
+                  variant="secondary"
+                  className="shadow-md mt-2 fw-bold px-4"
+                >
+                  Default
+                </Button>
+              </div>{" "}
+            </>
           )}
-          <div className="d-flex gap-1 justify-content-center ">
-            <Button
-              onClick={() => updateConfigOnAPI(updates)}
-              size="md"
-              variant="primary"
-              className="shadow-md mt-2 fw-bold px-4"
-            >
-              Submit
-            </Button>
-            <Button
-              onClick={resetConfigOnAPI}
-              size="md"
-              variant="secondary"
-              className="shadow-md mt-2 fw-bold px-4"
-            >
-              Default
-            </Button>
-          </div>{" "}
         </Card.Body>
       </Card>
     </StyledPopout>

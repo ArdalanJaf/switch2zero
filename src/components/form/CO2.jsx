@@ -22,6 +22,7 @@ export default function CO2() {
           <Form.Select
             onChange={(e) => dispatch(setAnnualCO2(Number(e.target.value)))}
             disabled={controls.customCo2 ? true : false}
+            value={annualCO2}
           >
             <option value={""}>Select country</option>
             {avgAnnualCO2ByCountry.map((c, i) => {

@@ -18,6 +18,16 @@ const dateUtils = {
       months[date.getMonth()].substring(0, 3) + "-" + date.getUTCFullYear()
     );
   },
+  dateToLocalString: (date) => {
+    let dObj = new Date(date);
+    return (
+      dObj.toLocaleDateString() +
+      " " +
+      dObj.getHours() +
+      ":" +
+      dObj.getMinutes()
+    );
+  },
 };
 
 export default dateUtils;

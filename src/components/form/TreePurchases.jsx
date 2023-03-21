@@ -8,7 +8,7 @@ import { Table, Form, Button } from "react-bootstrap";
 
 export default function TreePurchases() {
   const dispatch = useDispatch();
-  const { purchases } = useSelector((state) => state.form);
+  const { purchases, controls } = useSelector((state) => state.form);
   const config = useSelector((state) => state.config);
 
   let totalTrees = 0;
@@ -32,7 +32,8 @@ export default function TreePurchases() {
         <h4>Tree Purchases</h4>
         <p className="d-block mb-2">
           Plan your tree purchases by adding a purchase at different times. You
-          may only purchase a maximum of 55 trees per year.
+          may only purchase a maximum of {controls.max_annual_purchase} trees
+          per year.
         </p>
         <Table className="mb-1">
           <thead>

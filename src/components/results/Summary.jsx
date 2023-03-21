@@ -18,11 +18,13 @@ export default function Summary() {
 
   const hasNeutral = carbonNeutralDate === null ? false : true;
 
+  const alertColor = hasNeutral ? "success" : "danger";
+
   return (
     <div className="">
       <ul className="ps-0" style={{ listStyle: "none" }}>
         <li className="mb-3">
-          <Alert variant="success shadow">
+          <Alert variant={`${alertColor} shadow-sm`}>
             {hasNeutral &&
               `You will achieve carbon neutrality in  ${unixToMonth(
                 carbonNeutralDate
@@ -35,7 +37,7 @@ export default function Summary() {
         </li>
 
         <li className="mb-3">
-          <Alert variant="success shadow-sm">
+          <Alert variant={`${alertColor} shadow-sm`}>
             {hasNeutral &&
               `Your monthly maintanence cost at this point is USD${centsToDollars(
                 ongoingUpkeep
@@ -51,7 +53,7 @@ export default function Summary() {
         </li>
 
         <li className="mb-3 ">
-          <Alert variant="success shadow-sm">
+          <Alert variant={`${alertColor} shadow-sm`}>
             Your estimated expenditure over {totalTime.years} years
             {totalTime.months > 0 &&
               " " +

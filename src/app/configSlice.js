@@ -11,7 +11,8 @@ const initialState = {
     useFractionalExponential: 0,
     applyInflationToUpkeep: 0,
   },
-  showConfig: true,
+  showConfig: false,
+  login: { userId: "", token: "" },
 };
 
 export const configSlice = createSlice({
@@ -39,9 +40,13 @@ export const configSlice = createSlice({
     setShowConfig: (state, action) => {
       return { ...state, showConfig: !state.showConfig };
     },
+    setLogin: (state, action) => {
+      return { ...state, login: action.payload };
+    },
   },
 });
 
-export const { setConfig, setSetting, setShowConfig } = configSlice.actions;
+export const { setConfig, setSetting, setShowConfig, setLogin } =
+  configSlice.actions;
 
 export default configSlice.reducer;

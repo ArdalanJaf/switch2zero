@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { avgAnnualCO2ByCountry } from "../config/avgAnnualCO2ByCountry";
+import sortPurchases from "../utils/sortPurchases";
 
 const initialState = {
-  annualCO2: "5.5", // metric tons
-  purchases: [{ month: 2, year: 2025, trees: 55 }],
+  annualCO2: "", // metric tons
+  purchases: [{ month: "", year: "", trees: "" }],
   inflationRate: "", // %
   controls: {
     customCo2: false,
@@ -65,6 +67,11 @@ export const formSlice = createSlice({
       newPurchases.push(newPurchase);
       return { ...state, purchases: newPurchases };
     },
+    sortPurchasesByDate: (state, action) => {
+      let newPurchases = [...state.purchases];
+      sortPurchases(newPurchases);
+      return { ...state, purchases: newPurchases };
+    },
     setInflationRate: (state, action) => {
       return { ...state, inflationRate: action.payload };
     },
@@ -86,6 +93,15 @@ export const formSlice = createSlice({
         controls: { ...state.controls, max_annual_purchase: action.payload },
       };
     },
+    loadForm: (state, action) => {
+      let newForm = action.payload;
+      newForm.controls = { ...initialState.controls };
+      newForm.annualCO2 = newForm.annualCO2 / 1000;
+      if (!Object.values(avgAnnualCO2ByCountry).includes(newForm.annualCO2)) {
+        newForm.controls.customCo2 = true;
+      }
+      return { ...newForm };
+    },
   },
 });
 
@@ -95,10 +111,12 @@ export const {
   setPurchase,
   delPurchase,
   addPurchase,
+  sortPurchasesByDate,
   setInflationRate,
   setErrors,
   clearErrors,
   setMaxPurchase,
+  loadForm,
 } = formSlice.actions;
 
 export default formSlice.reducer;
