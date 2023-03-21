@@ -7,6 +7,7 @@ const initialState = {
   controls: {
     customCo2: false,
     errors: {},
+    max_annual_purchase: 55,
   },
 };
 
@@ -37,7 +38,9 @@ export const formSlice = createSlice({
         sameYearArr.map((p) => (currentYearValue += p.trees));
 
         newValue =
-          currentYearValue + value <= 55 ? value : 55 - currentYearValue;
+          currentYearValue + value <= state.controls.max_annual_purchase
+            ? value
+            : state.controls.max_annual_purchase - currentYearValue;
 
         // trigger notification so user knows they reached max?
       }
@@ -77,6 +80,12 @@ export const formSlice = createSlice({
         controls: { ...state.controls, errors: initialState.controls.errors },
       };
     },
+    setMaxPurchase: (state, action) => {
+      return {
+        ...state,
+        controls: { ...state.controls, max_annual_purchase: action.payload },
+      };
+    },
   },
 });
 
@@ -89,6 +98,7 @@ export const {
   setInflationRate,
   setErrors,
   clearErrors,
+  setMaxPurchase,
 } = formSlice.actions;
 
 export default formSlice.reducer;

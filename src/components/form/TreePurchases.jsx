@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addPurchase } from "../../app/formSlice";
+import { addPurchase, setMaxPurchase } from "../../app/formSlice";
 import FormTreePurchase from "./TreePurchase";
+import axios from "axios";
+import { API_URL } from "../../api/API_URL";
 import { Table, Form, Button } from "react-bootstrap";
 
 export default function TreePurchases() {
   const dispatch = useDispatch();
   const { purchases } = useSelector((state) => state.form);
+  const config = useSelector((state) => state.config);
 
   let totalTrees = 0;
   purchases.map((p) => (totalTrees += Number(p.trees)));
+
+  useEffect(() => {
+    const getMaxTreeLimit = async () => {
+      try {
+        const res = await axios.get(API_URL + "/max_trees_annaul_purchase");
+        dispatch(setMaxPurchase(res.data.max_annual_purchase));
+      } catch (errors) {
+        console.log(errors);
+      }
+    };
+    getMaxTreeLimit();
+  }, [config.current]);
 
   return (
     <>
