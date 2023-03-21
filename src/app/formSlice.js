@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  annualCO2: "", // metric tons
-  purchases: [{ month: "", year: "", trees: "" }],
+  annualCO2: "5.5", // metric tons
+  purchases: [{ month: 2, year: 2025, trees: 55 }],
   inflationRate: "", // %
   controls: {
     customCo2: false,

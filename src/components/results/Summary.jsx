@@ -54,7 +54,8 @@ export default function Summary() {
           <Alert variant="success shadow-sm">
             Your estimated expenditure over {totalTime.years} years
             {totalTime.months > 0 &&
-              totalTime.months +
+              " " +
+                totalTime.months +
                 " month" +
                 (totalTime.months > 1 ? "s" : "")}{" "}
             is USD {centsToDollars(initial + upkeep)}. This compromises USD{" "}

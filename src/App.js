@@ -9,6 +9,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import "./styles/App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import ConfigControl from "./components/ConfigControl";
+
 function App() {
   const data = useSelector((state) => state.data);
   const hasData = Object.keys(data).length > 0 ? true : false;
@@ -23,6 +25,8 @@ function App() {
         </Col>
       </Row>
       <Container fluid className="">
+        <ConfigControl />
+
         <Row>
           <Col md={6}>
             <div className="shadow p-4 rounded">

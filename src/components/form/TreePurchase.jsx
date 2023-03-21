@@ -109,6 +109,7 @@ export default function TreePurchase({ index }) {
         <div
           onClick={() => dispatch(delPurchase(index))}
           style={{ cursor: "pointer" }}
+          aria-label="delete purchase"
         >
           <DeleteIcon />
         </div>
