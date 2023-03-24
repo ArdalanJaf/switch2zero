@@ -33,6 +33,8 @@ export default function FormMain() {
       // send to API
       const res = await axios.post(API_URL + "/", formatFormForAPI(form));
 
+      console.log(res.data.result);
+
       // handle errors || store data
       if (res.data.result.errors)
         return dispatch(setErrors(res.data.result.errors));

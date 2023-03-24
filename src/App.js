@@ -22,7 +22,7 @@ function App() {
       {showConfig && <ConfigControl />}
 
       {/* Header */}
-      <Row>
+      <Row style={{ maxWidth: "100vw" }}>
         <Col className="d-flex p-2 mx-3 mt-1 mb-3 justify-content-between">
           <div className="d-flex align-items-center">
             <TreeIcon />
