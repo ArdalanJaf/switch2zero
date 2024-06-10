@@ -1,6 +1,6 @@
 # Carbon Offset Simulator
 *This [full-stack](https://github.com/ArdalanJaf/switch2zero.api) web app allows users to simulate the costs and time to achieve carbon neutrality through tree purchases (planting and upkeep). User inputs their average annual CO2 emmissions and purchases. Each purchase consists of month and year of purchase and number of trees. The RESTful API returns the costs and time it will take, along with graph data to visualise the results.
-This was built as part of a 2-day tech challenge (I had about 1.5 days).*
+This was built as part of a 2-day tech challenge*
 
 ### Deployment
 For both front and api:
@@ -13,7 +13,8 @@ Node.js,
 Axios,
 Jest,
 Recharts,
-Bootstrap React, mySQL.
+Bootstrap React, 
+mySQL.
 
 ## Features
 - Form allows user to select average CO2 output based on country, or input their own custom value. 
