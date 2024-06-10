@@ -45,7 +45,3 @@ mySQL.
 - Testing could be more comprehensive. Given a little more time, I would have written tests for the simulator's key util functions. Nonetheless I wanted to demonstrated that I am capable of implementing automated testing.
 - The form's select inputs could have a predictive text input feature (if I type "M", list reduces to "March, May").
 - The styling could definitely be improved. As well as the overall design, I would add animations, make fully responsive and a more dynamic error feedback system (eg. once user corrects individual error, error text and input highlight dissapears).
-
-
-Overall I enjoyed the challenge and appreciate the opportunity!
-
